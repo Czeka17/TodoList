@@ -1,0 +1,20 @@
+.container{
+   background: #4942E4;
+   height: 100%;
+   padding-right: 3em;
+   text-align: center;
+}
+.navList{
+    list-style: none;
+    padding: 1em;
+    margin: 0;
+}
+.navList li{
+    text-align: left;
+    padding: 1em;
+    margin: 1em;
+    background: #8696FE;
+    border-radius: 10px;
+    width: 100%;
+    cursor: pointer;
+}

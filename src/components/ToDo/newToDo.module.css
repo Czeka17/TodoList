@@ -1,0 +1,38 @@
+.formContainer{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    padding: 1em;
+}
+.form{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    background: #222831;
+    padding: 3em;
+    border-radius: 8px;
+}
+.formTitle{
+    width: 50%;
+    padding: 1em 2em;
+    margin: 1em;
+    border-radius: 10px;
+}
+.formDescription{
+    width: 50%;
+    padding: 1em 2em;
+    margin: 1em;
+    resize: vertical;
+    max-height: 300px;
+    border-radius: 10px;
+}

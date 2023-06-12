@@ -1,0 +1,97 @@
+.todoContainer{
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    padding: 0 1em;
+}
+.newTodo{
+    padding: 1em 2em;
+    background: #8696FE;
+    border: 1px solid #4942E4;
+    color: white;
+    border-radius: 10px;
+}
+.actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.listActions{
+    margin: 0 1em;
+}
+.listActions button{
+    padding: 1em;
+    margin: 0 0.5em;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+.listActions button:hover{
+    transform: scale(1.1);
+}
+.activeAction{
+    color:#4942E4;
+}
+.notActiveAction{
+    opacity: 0.5;
+    color: white;
+}
+.selectFilter{
+    background-color: #8696FE;
+    color: white;
+    border: none;
+    padding: 1em 2em;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.todo{
+    background-color: #8696FE;
+    text-align: left;
+    list-style: none;
+    margin: 1em;
+    padding: 1em 2em;
+    width: 20%;
+    word-break: break-all;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.todoList{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 2em;
+}
+.todoListAlternative{
+    flex-direction: column;
+    width: 100%;
+}
+.controls{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    padding: 1em;
+}
+.controls button:first-child{
+    margin-right: auto;
+}
+
+
+.important{
+    color: red;
+}
+.notImportant{
+    color: white;
+}
+
+.todoContainer::-webkit-scrollbar {
+    width: 1px;
+  }
+  
