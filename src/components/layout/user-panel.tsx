@@ -10,9 +10,11 @@ interface ToDo {
   }
 interface UserPanelProps {
   todos: ToDo[];
+  onDelete: () => void
+  formattedDate: string;
 }
 
-const UserPanel: React.FC<UserPanelProps> = ({ todos }) => {
+const UserPanel: React.FC<UserPanelProps> = ({ todos, onDelete, formattedDate }) => {
   const getCompletionPercentage = (): number => {
     if (todos.length === 0) {
       return 0;
@@ -23,7 +25,7 @@ const UserPanel: React.FC<UserPanelProps> = ({ todos }) => {
   };
   const completedTasks = todos.filter((todo) => todo.isCompleted);
     const totalTasks = todos.length;
-
+    const options = { year: 'numeric', month: 'short', day: 'numeric' } as const;
   return (
     <div className={classes.container}>
       <p className={classes.percentage}>Tasks: {completedTasks.length}/{totalTasks}</p>
@@ -33,6 +35,14 @@ const UserPanel: React.FC<UserPanelProps> = ({ todos }) => {
           style={{ width: `${getCompletionPercentage()}%` }}
         />
       </div>
+      {todos.some(
+        (todo) =>
+          todo.date &&
+          todo.date.toLocaleDateString('en-US', options) === formattedDate
+      ) && <p>Today tasks</p>}
+
+
+    <button onClick={onDelete}>Delete all todos</button>
     </div>
   );
 };

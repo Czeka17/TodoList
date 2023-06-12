@@ -1,20 +1,26 @@
 .container{
    background: #4942E4;
    height: 100%;
-   padding-right: 3em;
    text-align: center;
+   width: 20%;
 }
 .navList{
     list-style: none;
-    padding: 1em;
     margin: 0;
+    padding: 0;
 }
 .navList li{
     text-align: left;
-    padding: 1em;
-    margin: 1em;
-    background: #8696FE;
-    border-radius: 10px;
+    margin: 1em 0;
+    padding: 1em 0;
+    background: transparent;
     width: 100%;
     cursor: pointer;
+    border: none;
+}
+.navList li a{
+    margin: 1em;
+}
+.navList li:hover{
+    border-right: 2px solid white;
 }

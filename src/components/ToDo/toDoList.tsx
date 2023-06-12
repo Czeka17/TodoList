@@ -3,7 +3,7 @@ import {
   AiFillEdit,
   AiFillStar,
   AiOutlineCheck,
-  AiFillDelete,AiOutlineUnorderedList,AiOutlineTable
+  AiFillDelete,AiOutlineUnorderedList,AiOutlineTable,AiOutlineClose,AiOutlineSearch,AiOutlineCalendar
 } from "react-icons/ai";
 import classes from "./toDoList.module.css";
 import NewToDo from "./newToDo";
@@ -31,6 +31,7 @@ interface TodoListProps {
     id: number
   ) => void;
   todos: ToDo[];
+  formattedDate: string
 }
 
 
@@ -38,20 +39,14 @@ function TodoList({
   todos,
   createTodo,
   updateTodo,
-  deleteTodo,
+  deleteTodo, formattedDate
 }: TodoListProps) {
   const [showModal, setShowModal] = useState(false);
   const [selectedTodo, setSelectedTodo] = useState<ToDo | null>()
   const [filterByImportance, setFilterByImportance] = useState(false);
   const [filterByCompletion, setFilterByCompletion] = useState(false);
   const [altList, setAltList] = useState(false)
-
-
-  useEffect(() => {
-    if (todos.length > 0) {
-      localStorage.setItem("todos", JSON.stringify(todos));
-    }
-  }, [todos]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   
 
@@ -83,15 +78,24 @@ function TodoList({
   }
 
   function filterTodos() {
-    if (filterByImportance && filterByCompletion) {
-      return todos.filter((todo) => todo.isImportant && todo.isCompleted);
-    } else if (filterByImportance) {
-      return todos.filter((todo) => todo.isImportant);
-    } else if (filterByCompletion) {
-      return todos.filter((todo) => todo.isCompleted);
-    } else {
-      return todos;
+    let filteredTodos = todos;
+
+    if (filterByImportance) {
+      filteredTodos = filteredTodos.filter((todo) => todo.isImportant);
     }
+  
+    if (filterByCompletion) {
+      filteredTodos = filteredTodos.filter((todo) => todo.isCompleted);
+    }
+  
+    if (searchQuery.trim() !== "") {
+      const searchQueryLowerCase = searchQuery.toLowerCase();
+      filteredTodos = filteredTodos.filter((todo) =>
+        todo.title.toLowerCase().includes(searchQueryLowerCase)
+      );
+    }
+  
+    return filteredTodos;
   }
 
   function addToDoHandler(todo?: ToDo){
@@ -121,10 +125,29 @@ function TodoList({
       setSelectedTodo(null);
     }
   };
+  function handleSearchQueryChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setSearchQuery(e.target.value);
+    if (e.target.value.trim() !== "") {
+      setFilterByImportance(false);
+      setFilterByCompletion(false);
+      
+    }
+  }
   
   return (
     <section className={classes.todoContainer}>
+      <div className={classes.menuContainer}>
+      <div className={classes.search}>
+      <input
+        type="text"
+        placeholder="Search by title"
+        value={searchQuery}
+        onChange={handleSearchQueryChange}
+      /><AiOutlineSearch/>
+      </div>
+      <p>{formattedDate}</p>
       <button className={classes.newTodo} onClick={() => addToDoHandler()}>Add todo</button>
+      </div>
       <div className={classes.actions}>
       <div className={classes.listActions}>
       <button onClick={altListHandler} className={`${altList ? classes.activeAction : classes.notActiveAction}`}><AiOutlineUnorderedList/></button>
@@ -155,10 +178,10 @@ function TodoList({
           <li key={todo.id}  className={`${classes.todo} ${altList ? classes.todoListAlternative : ''}`}>
               <h4>{todo.title}</h4>
               <p>{todo.description}</p>
-              {todo.date ? <p>{new Date(todo.date).toLocaleDateString('en-GB')}</p> : <p>No date</p>}
+              {todo.date ? <p><AiOutlineCalendar/>{new Date(todo.date).toLocaleDateString('en-GB')}</p> : <p>No date</p>}
             <div className={classes.controls}>
             <button onClick={() => statusHandler(todo.id)}>
-              {todo.isCompleted ? <AiOutlineCheck /> : "no"}
+              {todo.isCompleted ? <AiOutlineCheck /> : <AiOutlineClose/>}
             </button>
             <button onClick={() =>{addToDoHandler(todo)}}>
               <AiFillEdit />
@@ -179,10 +202,11 @@ function TodoList({
             </div>
           </li>
         ))}
+        <li className={`${classes.createTodo} ${altList ? classes.todoListAlternative : ''}`}>
+          <button onClick={() => addToDoHandler()}>Add todo</button>
+        </li>
       </ul>
-      <p>All todos: {todos.length}</p>
       {showModal && <NewToDo createTodo={createTodo} onHideModal={hideModal} editTodo={editTodo} todo={selectedTodo} />}
-      {/* {showModal && <ToDoModal todo={selectedTodo} />} */}
     </section>
   );
 }

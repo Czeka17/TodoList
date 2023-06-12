@@ -11,11 +11,34 @@ interface ToDo {
 	isCompleted: boolean;
 	date: Date | null
   }
+  
 function App() {
 	const [todos, setTodos] = useState<ToDo[]>([]);
   const [nextId, setNextId] = useState(1);
   const [filter, setFilter] = useState("");
 
+  const currentDate = new Date();
+  const options = { year: 'numeric', month: 'short', day: 'numeric' } as const;
+
+  const formattedDate = currentDate.toLocaleDateString('en-US', options);
+
+
+  useEffect(() => {
+	const storedTodos = localStorage.getItem('todos');
+	if (storedTodos) {
+	  setTodos(JSON.parse(storedTodos));
+	  setNextId(JSON.parse(storedTodos).length + 1); 
+	}
+  }, []);
+  
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
+  
+	function deleteTodos(){
+		setTodos([])
+	}
 
   function createTodo(
     title: string,
@@ -33,7 +56,7 @@ function App() {
       date: date
     };
 
-    setTodos((prevTodos) => [...prevTodos, newTodo]);
+    setTodos((prevTodos) => [newTodo,...prevTodos]);
     setNextId(nextId + 1);
   }
 
@@ -64,8 +87,8 @@ function App() {
 	return (
 		<section className={classes.display}>
 			<FilterNav onFilter={handleFilter} />
-			<TodoList todos={filteredTodos} createTodo={createTodo} updateTodo={updateTodo} deleteTodo={deleteTodo} />
-			<UserPanel todos={filteredTodos}/>
+			<TodoList todos={filteredTodos} createTodo={createTodo} updateTodo={updateTodo} deleteTodo={deleteTodo} formattedDate={formattedDate} />
+			<UserPanel todos={filteredTodos} onDelete={deleteTodos} formattedDate={formattedDate}/>
 		</section>
 	);
 }

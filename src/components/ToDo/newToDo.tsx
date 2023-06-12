@@ -59,6 +59,10 @@ function NewToDo({
   function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
+    if(!title || title.trim() === '' || !description || description.trim() === ''){
+      alert("Please provide a title and description.");
+      return
+    }
     if (todo) {
       editTodo(
         todo.id,
@@ -109,7 +113,7 @@ function NewToDo({
         <input
           className={classes.formTitle}
           type="date"
-          value={date ? new Date(date).toLocaleDateString('en-GB') : ''}
+          value={date ? date.toISOString().split("T")[0] : ""}
           onChange={(e) => setDate(new Date(e.target.value))}
         />
         <div>
