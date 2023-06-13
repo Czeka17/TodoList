@@ -25,16 +25,17 @@ function App() {
   const formattedDate = currentDate.toLocaleDateString('en-US', options);
 
   useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
-  
-  useEffect(() => {
     const storedTodos = localStorage.getItem('todos');
     if (storedTodos) {
-      const parsedTodos = JSON.parse(storedTodos);
-      setTodos(parsedTodos);
+      setTodos(JSON.parse(storedTodos));
+      setNextId(JSON.parse(storedTodos).length + 1); 
     }
-  }, []);
+    }, []);
+    
+  
+    useEffect(() => {
+      localStorage.setItem('todos', JSON.stringify(todos));
+    }, [todos]);
   
 	function deleteTodos(){
 		setTodos([])
@@ -80,7 +81,9 @@ function App() {
 		return todo.isCompleted;
 	  }else if(filter === "uncompleted"){
 		return !todo.isCompleted
-	  }
+	  }else if(filter === "today"){
+      return todo.date && todo.date.toLocaleDateString('en-US', options) === formattedDate
+    }
 	  return true;
 	})
   : todos;

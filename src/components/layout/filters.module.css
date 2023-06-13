@@ -37,7 +37,7 @@
     .container{
         position: fixed;
         transform: translate(-102%);
-        width: 70%;
+        width: 50%;
         z-index: 100;
     }
 }

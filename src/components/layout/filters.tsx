@@ -20,24 +20,30 @@ const FilterNav: React.FC<FilterNavProps> = ({ onFilter, showMenu,hideMenuHandle
         <h1>TO-DO LIST</h1>
     <nav>
       <ul className={classes.navList}>
+
+        <li onClick={() => handleFilterClick("today")} className={activeFilter === "today" ? classes.active : ""}>
+          <a>
+            Today's
+          </a>
+        </li>
         <li onClick={() => handleFilterClick("important")} className={activeFilter === "important" ? classes.active : ""}>
           <a>
-            Show Important
+            Important
           </a>
         </li>
         <li onClick={() => handleFilterClick("completed")} className={activeFilter === "completed" ? classes.active : ""}>
           <a>
-            Show Completed
+            Completed
           </a>
         </li>
         <li onClick={() => handleFilterClick("uncompleted")} className={activeFilter === "uncompleted" ? classes.active : ""}>
           <a>
-            Show Uncompleted
+            Uncompleted
           </a>
         </li>
         <li onClick={() => handleFilterClick("")} className={activeFilter === "" ? classes.active : ""}>
           <a>
-            Show All
+            All
           </a>
         </li>
       </ul>

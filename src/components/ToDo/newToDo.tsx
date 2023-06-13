@@ -124,27 +124,36 @@ function NewToDo({
           value={date ? date.toISOString().split("T")[0] : ""}
           onChange={(e) => setDate(new Date(e.target.value))}
         />
-        <div>
-          <label htmlFor="priority">Important?</label>
+        <div className={classes.checkboxContainer}>
+          <div>
+          <label htmlFor="priority">Important</label>
           <input
             type="checkbox"
             name="priority"
+            className={classes.checkbox}
             checked={isImportant}
             onChange={(e) => setIsImportant(e.target.checked)}
           />
-          <label htmlFor="completion">Completed?</label>
+          </div>
+          <div>
+          <label htmlFor="completion">Completed</label>
           <input
             type="checkbox"
             name="completion"
+            className={classes.checkbox}
             checked={isCompleted}
             onChange={(e) => setIsCompleted(e.target.checked)}
           />
+          </div>
         </div>
-        <button type="submit">{todo ? 'Save' : 'Create'}</button>
+        <div className={classes.formButtons}>
         <button onClick={onHideModal}>Cancel</button>
+        <button type="submit">{todo ? 'Save' : 'Create'}</button>
+        </div>
       </form>
     </div>
   );
 }
+
 
 export default NewToDo;
