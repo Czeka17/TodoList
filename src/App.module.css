@@ -5,3 +5,15 @@
     align-items: center;
     height: 100vh;
 }
+.burger{
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 1em;
+    z-index: 999;
+}
+@media(min-width:1024px){
+    .burger{
+        display: none;
+    }
+}

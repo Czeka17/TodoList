@@ -3,6 +3,7 @@ import TodoList from "./components/ToDo/toDoList";
 import FilterNav from "./components/layout/filters";
 import classes from './App.module.css'
 import UserPanel from "./components/layout/user-panel";
+import Hamburger from "hamburger-react";
 interface ToDo {
 	id: number;
 	title: string;
@@ -16,25 +17,24 @@ function App() {
 	const [todos, setTodos] = useState<ToDo[]>([]);
   const [nextId, setNextId] = useState(1);
   const [filter, setFilter] = useState("");
-
+  const [showMenu, setShowMenu] = useState(false)
+  const [hamburgerToggled, setHamburgerToggled] = useState(false);
   const currentDate = new Date();
   const options = { year: 'numeric', month: 'short', day: 'numeric' } as const;
 
   const formattedDate = currentDate.toLocaleDateString('en-US', options);
 
-
-  useEffect(() => {
-	const storedTodos = localStorage.getItem('todos');
-	if (storedTodos) {
-	  setTodos(JSON.parse(storedTodos));
-	  setNextId(JSON.parse(storedTodos).length + 1); 
-	}
-  }, []);
-  
-
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
+  
+  useEffect(() => {
+    const storedTodos = localStorage.getItem('todos');
+    if (storedTodos) {
+      const parsedTodos = JSON.parse(storedTodos);
+      setTodos(parsedTodos);
+    }
+  }, []);
   
 	function deleteTodos(){
 		setTodos([])
@@ -84,9 +84,23 @@ function App() {
 	  return true;
 	})
   : todos;
+
+  function hideMenuHandler(){
+    setShowMenu(false)
+    setHamburgerToggled(false);
+  }
 	return (
 		<section className={classes.display}>
-			<FilterNav onFilter={handleFilter} />
+      <div className={classes.burger} >
+      <Hamburger
+          toggled={hamburgerToggled}
+          toggle={setHamburgerToggled}
+          onToggle={(toggled) => {
+            setShowMenu(toggled);
+          }}
+        />
+      </div>
+			<FilterNav hideMenuHandler={hideMenuHandler} onFilter={handleFilter} showMenu={showMenu} />
 			<TodoList todos={filteredTodos} createTodo={createTodo} updateTodo={updateTodo} deleteTodo={deleteTodo} formattedDate={formattedDate} />
 			<UserPanel todos={filteredTodos} onDelete={deleteTodos} formattedDate={formattedDate}/>
 		</section>

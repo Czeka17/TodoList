@@ -63,6 +63,14 @@ function NewToDo({
       alert("Please provide a title and description.");
       return
     }
+    if (description.length > 500) {
+      alert('Description cannot exceed 500 characters.');
+      return;
+    }
+    if(title.length > 80){
+      alert('Title cannot exceed 80 characters.');
+      return;
+    }
     if (todo) {
       editTodo(
         todo.id,

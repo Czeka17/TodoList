@@ -3,22 +3,23 @@
     height: 100%;
     width: 100%;
     overflow: auto;
-    padding: 0 1em;
+    padding: 0 4em;
+    margin-bottom: 1em;
 }
 .menuContainer{
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
     padding: 2em 0;
 }
 .search{
     position: relative;
+    order: 1;
 }
 .search input{
     border-radius: 10px;
     border: 1px solid #4942E4;
-    background-color: #8696FE;
+    background-color: #4942E4;
     color: white;
     padding: 1em 2em;
 }
@@ -28,81 +29,36 @@
     right: 0;
     font-size: 2rem;
 }
-
+.date{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 50%;
+}
 .newTodo{
     padding: 1em 2em;
-    background: #8696FE;
+    background: #4942E4;
     border: 1px solid #4942E4;
     color: white;
     border-radius: 10px;
     cursor: pointer;
 }
-.actions{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-.listActions{
-    margin: 0 1em;
-}
-.listActions button{
-    padding: 1em;
-    margin: 0 0.5em;
-    background: transparent;
-    border: none;
-    border-radius: 10px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: transform 0.3s;
-}
-.listActions button:hover{
-    transform: scale(1.1);
-}
-.activeAction{
-    color:#4942E4;
-}
-.notActiveAction{
-    opacity: 0.5;
-    color: white;
-}
-.selectFilter{
-    background-color: #8696FE;
-    color: white;
-    border: none;
-    padding: 1em 2em;
-    border-radius: 10px;
-    cursor: pointer;
-}
-.todo{
-    background-color: #8696FE;
-    text-align: left;
-    list-style: none;
-    margin: 1em;
-    padding: 1em 2em;
-    width: 20%;
-    word-break: break-all;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-.todoList{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    justify-content: flex-start;
-    margin: 2em;
-}
+
+.todoList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 1em;
+    margin: 0;
+    padding: 0;
+    padding-top: 1em;
+  }
+  
 .createTodo{
     background: transparent;
-    border: 2px dashed #8696FE;
-    margin: 1em;
-    padding: 2em;
+    border: 2px dashed #4942E4;
+    padding: 1em 2em;
+    min-height: 220px;
     list-style: none;
-    height: 200px;
-    width: 20%;
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -119,45 +75,41 @@
     color: white;
 }
 .createTodo:hover{
-    background: #8696FE;
+    background: #4942E4;
 }
-.todoListAlternative{
-    flex-direction: column;
-    width: 100%;
-}
-.controls{
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
-    padding: 1em;
-}
-.controls button{
-    background-color: transparent;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: white;
-    transition: transform 0.3s;
-}
-.controls button > *{
-    transition: all 0.3s;
-}
-.controls button:hover{
-    transform: scale(1.1);
-}
-.controls button:first-child{
-    margin-right: auto;
-}
-
-
-.important > *{
-    color: red;
-}
-.notImportant > *{
-    color: white;
-}
+.todoListAlternative {
+    display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1em;
+  }
 
 .todoContainer::-webkit-scrollbar {
     width: 1px;
   }
+  
+  
+
+  @media (min-width: 768px) {
+    .menuContainer {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    
+    .search{
+        order:0;
+    }
+  }
+  @media (max-width: 768px) {
+  .date{
+    margin-bottom: 1em;
+    justify-content: center;
+    width: 90%;
+}
+.search, .search input{
+    width: 90%;
+}
+.todoContainer{
+    padding: 0 1em;
+}
+}
   

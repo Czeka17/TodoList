@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     height: 100%;
     width: 20%;
     background: #4942E4;
@@ -29,3 +30,28 @@
     left: 0;
     transition: width 0.3s ease-in-out;
   }
+  .deleteHandler{
+    padding: 1em 2em;
+    margin-bottom: 2em;
+    border: none;
+    background: transparent;
+    color: white;
+  }
+  .githubAnchor{
+    margin: 1em;
+    padding: 1em 2em;
+    background: #8696FE;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .githubAnchor a{
+    text-decoration: none;
+    color: white;
+  }
+  @media(max-width: 1024px){
+    .container{
+        display: none;
+    }
+}

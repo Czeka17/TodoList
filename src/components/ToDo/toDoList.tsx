@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react";
-import {
-  AiFillEdit,
-  AiFillStar,
-  AiOutlineCheck,
-  AiFillDelete,AiOutlineUnorderedList,AiOutlineTable,AiOutlineClose,AiOutlineSearch,AiOutlineCalendar
+import { useState } from "react";
+import {AiOutlineSearch
 } from "react-icons/ai";
 import classes from "./toDoList.module.css";
 import NewToDo from "./newToDo";
+import ToDos from "./toDo";
+import ToDoActions from "./toDoActions";
 
 interface ToDo {
   id: number;
@@ -76,6 +74,18 @@ function TodoList({
       updateTodo(updatedTodo);
     }
   }
+  function filterByImportanceHandler(){
+    setFilterByCompletion(false)
+    setFilterByImportance(true)
+  }
+  function filterByCompletionHandler(){
+    setFilterByImportance(false);
+    setFilterByCompletion(true);
+  }
+  function filterAllTodos(){
+    setFilterByImportance(false);
+        setFilterByCompletion(false);
+  }
 
   function filterTodos() {
     let filteredTodos = todos;
@@ -140,67 +150,19 @@ function TodoList({
       <div className={classes.search}>
       <input
         type="text"
-        placeholder="Search by title"
         value={searchQuery}
         onChange={handleSearchQueryChange}
       /><AiOutlineSearch/>
       </div>
+      <div className={classes.date}>
       <p>{formattedDate}</p>
       <button className={classes.newTodo} onClick={() => addToDoHandler()}>Add todo</button>
       </div>
-      <div className={classes.actions}>
-      <div className={classes.listActions}>
-      <button onClick={altListHandler} className={`${altList ? classes.activeAction : classes.notActiveAction}`}><AiOutlineUnorderedList/></button>
-      <button onClick={normalListHandler} className={`${altList ? classes.notActiveAction : classes.activeAction}`}><AiOutlineTable/></button>
       </div>
-        <select className={classes.selectFilter}
-          onChange={(e) => {
-            const selectedValue = e.target.value;
-            if (selectedValue === "importance") {
-              setFilterByImportance(true);
-              setFilterByCompletion(false);
-            } else if (selectedValue === "completion") {
-              setFilterByImportance(false);
-              setFilterByCompletion(true);
-            } else {
-              setFilterByImportance(false);
-              setFilterByCompletion(false);
-            }
-          }}
-        >
-          <option value="">All</option>
-          <option value="importance">Important</option>
-          <option value="completion">Completed</option>
-        </select>
-      </div>
-      <ul className={classes.todoList}>
+      <ToDoActions altListHandler={altListHandler} normalListHandler={normalListHandler} altList={altList} filterAllTodos={filterAllTodos} filterByCompletionHandler={filterByCompletionHandler} filterByImportanceHandler={filterByImportanceHandler} />
+      <ul className={`${classes.todoList} ${altList ? classes.todoListAlternative : ''}`} >
         {filterTodos().map((todo) => (
-          <li key={todo.id}  className={`${classes.todo} ${altList ? classes.todoListAlternative : ''}`}>
-              <h4>{todo.title}</h4>
-              <p>{todo.description}</p>
-              {todo.date ? <p><AiOutlineCalendar/>{new Date(todo.date).toLocaleDateString('en-GB')}</p> : <p>No date</p>}
-            <div className={classes.controls}>
-            <button onClick={() => statusHandler(todo.id)}>
-              {todo.isCompleted ? <AiOutlineCheck /> : <AiOutlineClose/>}
-            </button>
-            <button onClick={() =>{addToDoHandler(todo)}}>
-              <AiFillEdit />
-            </button>
-            <button onClick={() => deleteHandler(todo.id)}>
-              <AiFillDelete />
-            </button>
-            <button
-              onClick={() => {
-                importantHandler(todo.id);
-              }}
-              className={
-                todo.isImportant ? classes.important : classes.notImportant
-              }
-            >
-              <AiFillStar />
-            </button>
-            </div>
-          </li>
+          <ToDos todo={todo} statusHandler={statusHandler} addToDoHandler={addToDoHandler} deleteHandler={deleteHandler} importantHandler={importantHandler} />
         ))}
         <li className={`${classes.createTodo} ${altList ? classes.todoListAlternative : ''}`}>
           <button onClick={() => addToDoHandler()}>Add todo</button>
