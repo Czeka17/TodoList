@@ -21,7 +21,7 @@ interface ToDoProps{
     importantHandler: (id:number) => void;
 }
 function ToDo({todo, statusHandler,addToDoHandler,deleteHandler, importantHandler}:ToDoProps){
-    return <li key={todo.id}  className={classes.todo}>
+    return <li key={todo.id}  className={`${classes.todo} ${todo.isCompleted ? classes.completedTask : ''}`}>
     <h4 data-testid="todo-title" className={todo.isCompleted ? classes.completed : ''}>{todo.title}</h4>
     <p className={todo.isCompleted ? classes.completed : ''}>{todo.description}</p>
     {todo.date ? <p className={classes.date}><AiOutlineCalendar/>{new Date(todo.date).toLocaleDateString('en-GB')}</p> : <p>No date</p>}

@@ -18,14 +18,14 @@
     transform: scale(1.1);
 }
 .activeAction{
-    color:#4942E4;
+    color:#11009E;
 }
 .notActiveAction{
     opacity: 0.5;
     color: white;
 }
 .selectFilter{
-    background-color: #4942E4;
+    background-color: #11009E;
     color: white;
     border: none;
     padding: 1em 2em;

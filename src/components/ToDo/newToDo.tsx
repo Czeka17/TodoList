@@ -65,6 +65,7 @@ function NewToDo({
     }
     if(!description || description.trim() === ''){
       alert("Please provide a description.")
+      return
     }
     if (description.length > 500) {
       alert('Description cannot exceed 500 characters.');

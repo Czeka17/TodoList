@@ -4,6 +4,7 @@ import classes from "./toDoList.module.css";
 import NewToDo from "./newToDo";
 import ToDos from "./toDo";
 import ToDoActions from "./toDoActions";
+import Hamburger from "hamburger-react";
 
 interface ToDo {
   id: number;
@@ -30,6 +31,9 @@ interface TodoListProps {
   todos: ToDo[];
   formattedDate: string
   showMetricsHandler:() => void
+  hamburgerToggled: boolean
+  hambugerToggledHandler:() => void
+  hamburgerToggleHandler:(toggle:boolean) => void
 }
 
 
@@ -37,7 +41,7 @@ function TodoList({
   todos,
   createTodo,
   updateTodo,
-  deleteTodo, formattedDate,showMetricsHandler
+  deleteTodo, formattedDate,showMetricsHandler,hamburgerToggled,hambugerToggledHandler,hamburgerToggleHandler
 }: TodoListProps) {
   const [showModal, setShowModal] = useState(false);
   const [selectedTodo, setSelectedTodo] = useState<ToDo | null>()
@@ -71,18 +75,6 @@ function TodoList({
       updatedTodo.isCompleted = !updatedTodo.isCompleted;
       updateTodo(updatedTodo);
     }
-  }
-  function filterByImportanceHandler(){
-    setFilterByCompletion(false)
-    setFilterByImportance(true)
-  }
-  function filterByCompletionHandler(){
-    setFilterByImportance(false);
-    setFilterByCompletion(true);
-  }
-  function filterAllTodos(){
-    setFilterByImportance(false);
-        setFilterByCompletion(false);
   }
 
   function filterTodos() {
@@ -153,12 +145,18 @@ function TodoList({
       /><AiOutlineSearch/>
       </div>
       <div className={classes.date}>
+       <div className={classes.burger}>
+       <Hamburger toggled={hamburgerToggled} toggle={hambugerToggledHandler} onToggle={hamburgerToggleHandler} />
+       </div>
+      <div>
+        <span className={classes.appName}>Todo List</span>
       <p>{formattedDate}</p>
+      </div>
       <button className={classes.newTodo} onClick={() => addToDoHandler()}>Add todo</button>
       <button onClick={showMetricsHandler} className={classes.metrics}><AiOutlineStock/></button>
       </div>
       </div>
-      <ToDoActions altListHandler={altListHandler} normalListHandler={normalListHandler} altList={altList} filterAllTodos={filterAllTodos} filterByCompletionHandler={filterByCompletionHandler} filterByImportanceHandler={filterByImportanceHandler} />
+      <ToDoActions altListHandler={altListHandler} normalListHandler={normalListHandler} altList={altList} />
       <ul className={`${classes.todoList} ${altList ? classes.todoListAlternative : ''}`} data-testid="todo-list" >
         {filterTodos().map((todo) => (
           <ToDos todo={todo} statusHandler={statusHandler} addToDoHandler={addToDoHandler} deleteHandler={deleteHandler} importantHandler={importantHandler} />

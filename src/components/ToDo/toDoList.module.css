@@ -12,14 +12,22 @@
     align-items: center;
     padding: 2em 0;
 }
+.appName{
+    font-weight: bold;
+    display: none;
+}
+.burger{
+    z-index: 999;
+    display: none;
+}
 .search{
     position: relative;
     order: 1;
 }
 .search input{
     border-radius: 10px;
-    border: 1px solid #4942E4;
-    background-color: #4942E4;
+    border: 1px solid #11009E;
+    background-color: #11009E;
     color: white;
     padding: 1em;
 }
@@ -33,19 +41,20 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     width: 50%;
 }
 .newTodo{
     padding: 1em 2em;
-    background: #4942E4;
-    border: 1px solid #4942E4;
+    background: #11009E;
+    border: 1px solid #11009E;
     color: white;
     border-radius: 10px;
     cursor: pointer;
 }
 .metrics{
     display: none;
-    background: #4942E4;
+    background: #11009E;
     border: none;
     border-radius: 10px;
     color: white;
@@ -54,16 +63,17 @@
 }
 .todoList {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-gap: 1em;
     margin: 0;
     padding: 0;
     padding-top: 1em;
+    transition: all 0.3s ease;
   }
   
 .createTodo{
     background: transparent;
-    border: 2px dashed #4942E4;
+    border: 2px dashed #11009E;
     padding: 1em 2em;
     min-height: 220px;
     list-style: none;
@@ -84,12 +94,14 @@
     color: white;
 }
 .createTodo:hover{
-    background: #4942E4;
+    background: #11009E;
 }
 .todoListAlternative {
     display: grid;
   grid-template-columns: 1fr;
   grid-gap: 1em;
+  transition: all 0.3s ease;
+  
   }
 
 .todoContainer::-webkit-scrollbar {
@@ -101,6 +113,12 @@
   @media(max-width: 1024px){
     .metrics{
         display: block;
+    }
+    .appName{
+        display: block;
+    }
+    .todoList{
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
   }
   @media (min-width: 768px) {
@@ -116,8 +134,15 @@
   @media (max-width: 768px) {
   .date{
     margin-bottom: 1em;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: flex-start;
     width: 100%;
+}
+.burger{
+    display: block;
+}
+.newTodo{
+    display: none;
 }
 .date button{
     margin: 0 0.5em;

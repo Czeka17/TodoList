@@ -1,5 +1,5 @@
  .todo {
-    background-color: #4942E4;
+    background-color: #11009E;
     text-align: left;
     list-style: none;
     padding: 1em 2em;
@@ -8,6 +8,10 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    
+  }
+  .completedTask{
+    background: #362ac1;
   }
    .completed{
     text-decoration: line-through;
@@ -15,12 +19,13 @@
     .hr{
     width: 100%;
     border: none;
-    border-top: 2px dashed #8696FE;
+    border-top: 2px dashed #4942E4;
   }
   .controls{
     display: flex;
     width: 100%;
     justify-content: flex-end;
+    align-items: flex-end;
     padding: 1em 0;
 }
 .controls button{
@@ -53,7 +58,7 @@
     font-size: 1rem;
     display: flex;
     align-items: center;
-    background: #8696FE;
+    background: #0C006B;
     padding: 0.5em;
     border-radius: 10px;
   }

@@ -15,7 +15,7 @@ interface ToDo {
   
 function App() {
 	const [todos, setTodos] = useState<ToDo[]>([]);
-  const [nextId, setNextId] = useState(1);
+  const [nextId, setNextId] = useState(4);
   const [filter, setFilter] = useState("");
   const [showMenu, setShowMenu] = useState(false)
   const [showMetrics, setShowMetrics] = useState(false)
@@ -23,6 +23,31 @@ function App() {
   const currentDate = new Date();
   const options = { year: 'numeric', month: 'short', day: 'numeric' } as const;
 
+  const DUMMY_TODOS = [ 
+    {
+      id: 1,
+      title: 'Test Todo',
+      description: 'This is a test todo',
+      isImportant: false,
+      isCompleted: false,
+      date: null
+    },
+    {
+      id: 2,
+      title: 'Test Todo',
+      description: 'This is a test todo',
+      isImportant: true,
+      isCompleted: false,
+      date: null
+    },{
+      id: 3,
+      title: 'Test Todo',
+      description: 'This is a test todo',
+      isImportant: false,
+      isCompleted: true,
+      date: null
+    }
+  ]
   const formattedDate = currentDate.toLocaleDateString('en-US', options);
 
   useEffect(() => {
@@ -38,6 +63,11 @@ function App() {
       localStorage.setItem('todos', JSON.stringify(todos));
     }, [todos]);
   
+    useEffect(()=> {
+      if(todos.length === 0){
+        setTodos([...DUMMY_TODOS,...todos])
+    }
+    }, [])
 	function deleteTodos(){
 		setTodos([])
 	}
@@ -59,7 +89,7 @@ function App() {
     };
 
     setTodos((prevTodos) => [newTodo,...prevTodos]);
-    setNextId(nextId + 1);
+    setNextId((prevNextId) => prevNextId + 1);
   }
 
   function deleteTodo(id: number) {
@@ -99,21 +129,18 @@ function App() {
   function hideMetricsHandler(){
     setShowMetrics(false)
   }
+  function hambugerToggledHandler(){
+    setHamburgerToggled(prevState => !prevState)
+  }
+  function hamburgerToggleHandler(toggled: boolean){
+    setShowMenu(toggled)
+    setShowMetrics(false)
+  }
 	return (
 		<section className={classes.display}>
-      <div className={classes.burger} >
-      <Hamburger
-          toggled={hamburgerToggled}
-          toggle={setHamburgerToggled}
-          onToggle={(toggled) => {
-            setShowMenu(toggled);
-            setShowMetrics(false)
-          }}
-        />
-      </div>
       {showMenu && <div className={classes.backdrop} onClick={hideMenuHandler}></div>}
 			<FilterNav hideMenuHandler={hideMenuHandler} onFilter={handleFilter} showMenu={showMenu} />
-			<TodoList todos={filteredTodos} createTodo={createTodo} updateTodo={updateTodo} deleteTodo={deleteTodo} formattedDate={formattedDate} showMetricsHandler={showMetricsHandler} />
+			<TodoList todos={filteredTodos} createTodo={createTodo} updateTodo={updateTodo} deleteTodo={deleteTodo} formattedDate={formattedDate} showMetricsHandler={showMetricsHandler} hamburgerToggled={hamburgerToggled} hambugerToggledHandler={hambugerToggledHandler} hamburgerToggleHandler={hamburgerToggleHandler} />
       {showMetrics && <div className={classes.backdrop} onClick={hideMetricsHandler}></div>}
 			<UserPanel todos={filteredTodos} onDelete={deleteTodos} formattedDate={formattedDate} showMetrics={showMetrics}/>
 		</section>

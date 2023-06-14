@@ -6,10 +6,11 @@
     text-align: center;
     height: 100%;
     width: 20%;
-    background: #4942E4;
+    background: #11009E;
   }
   .greetings{
     font-weight: bold;
+    padding-top: 2em;
   }
   .percentageContainer{
     width: 80%;
@@ -26,14 +27,14 @@
   .line {
     width: 100%;
     height: 10px;
-    background: #C4B0FF;
+    background: #11009E;
     border: 1px solid #ccc;
     border-radius: 10px;
     position: relative;
   }
   .fill {
     height: 100%;
-    background-color: #8696FE;
+    background-color: #362ac1;
     border-radius: 10px;
     position: absolute;
     top: 0;
@@ -45,7 +46,7 @@
     padding: 1em 2em;
     width: 85%;
     margin-bottom: 2em;
-    border: 2px dashed #8696FE;
+    border: 2px dashed #0C006B;
     border-radius: 10px;
     background: transparent;
     color: white;
@@ -55,7 +56,7 @@
   .githubAnchor{
     margin: 1em;
     padding: 1em 2em;
-    background: #8696FE;
+    background: #0C006B;
     border: none;
     border-radius: 10px;
     font-weight: bold;

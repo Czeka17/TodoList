@@ -1,6 +1,6 @@
 .container{
     position: relative;
-   background: #4942E4;
+   background: #11009E;
    height: 100%;
    text-align: center;
    width: 20%;
@@ -32,13 +32,13 @@
 }
 .navList li.active {
     font-weight: bold;
-    background-color: #11009E;
+    background-color: #0C006B;
   }
-@media(max-width: 1024px){
+@media(max-width: 768px){
     .container{
         position: fixed;
         transform: translate(-102%);
-        width: 50%;
+        width: 60%;
         z-index: 100;
         transition: transform 0.3s;
     }

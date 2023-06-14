@@ -23,7 +23,7 @@
     justify-content: center;
     align-items: center;
     width: 50%;
-    background:#11009E;
+    background:#0C006B;
     padding: 3em;
     border-radius: 8px;
 }
@@ -39,7 +39,7 @@
     padding: 1em 2em;
     margin: 1em;
     border-radius: 10px;
-    background: #4942E4;
+    background: #11009E;
     border: none;
     color: white;
 }
@@ -51,7 +51,7 @@
     resize: vertical;
     max-height: 300px;
     border-radius: 10px;
-    background: #4942E4;
+    background: #11009E;
     border: none;
     color: white;
 }
@@ -85,7 +85,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 .formButtons button{
     padding: 1em 2em;
-    background-color: #4942E4;
+    background-color: #11009E;
     border: none;
     color: white;
     border-radius: 10px;
