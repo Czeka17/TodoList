@@ -21,7 +21,7 @@
     border: 1px solid #4942E4;
     background-color: #4942E4;
     color: white;
-    padding: 1em 2em;
+    padding: 1em;
 }
 .search svg{
     position: absolute;
@@ -43,7 +43,15 @@
     border-radius: 10px;
     cursor: pointer;
 }
-
+.metrics{
+    display: none;
+    background: #4942E4;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 0.7em;
+    font-size: 1.2rem;
+}
 .todoList {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -64,6 +72,7 @@
     align-items: center;
     justify-content: center;
     transition: background 0.3s;
+    cursor: pointer;
 }
 .createTodo button{
     width: 100%;
@@ -89,6 +98,11 @@
   
   
 
+  @media(max-width: 1024px){
+    .metrics{
+        display: block;
+    }
+  }
   @media (min-width: 768px) {
     .menuContainer {
       flex-direction: row;
@@ -102,14 +116,21 @@
   @media (max-width: 768px) {
   .date{
     margin-bottom: 1em;
-    justify-content: center;
-    width: 90%;
+    justify-content: flex-end;
+    width: 100%;
 }
-.search, .search input{
-    width: 90%;
+.date button{
+    margin: 0 0.5em;
 }
 .todoContainer{
     padding: 0 1em;
+}
+.search{
+    width: 100%;
+}
+.search input{
+    width: 100%;
+    padding: 1em 0;
 }
 }
   

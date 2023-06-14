@@ -1,4 +1,5 @@
 .container{
+    position: relative;
    background: #4942E4;
    height: 100%;
    text-align: center;
@@ -6,7 +7,7 @@
 }
 
 .container h1{
-    padding-top: 1em;
+    padding-top: 2em;
 }
 .navList{
     list-style: none;
@@ -39,6 +40,7 @@
         transform: translate(-102%);
         width: 50%;
         z-index: 100;
+        transition: transform 0.3s;
     }
 }
 

@@ -18,6 +18,7 @@ function App() {
   const [nextId, setNextId] = useState(1);
   const [filter, setFilter] = useState("");
   const [showMenu, setShowMenu] = useState(false)
+  const [showMetrics, setShowMetrics] = useState(false)
   const [hamburgerToggled, setHamburgerToggled] = useState(false);
   const currentDate = new Date();
   const options = { year: 'numeric', month: 'short', day: 'numeric' } as const;
@@ -92,6 +93,12 @@ function App() {
     setShowMenu(false)
     setHamburgerToggled(false);
   }
+  function showMetricsHandler(){
+    setShowMetrics(true)
+  }
+  function hideMetricsHandler(){
+    setShowMetrics(false)
+  }
 	return (
 		<section className={classes.display}>
       <div className={classes.burger} >
@@ -100,12 +107,15 @@ function App() {
           toggle={setHamburgerToggled}
           onToggle={(toggled) => {
             setShowMenu(toggled);
+            setShowMetrics(false)
           }}
         />
       </div>
+      {showMenu && <div className={classes.backdrop} onClick={hideMenuHandler}></div>}
 			<FilterNav hideMenuHandler={hideMenuHandler} onFilter={handleFilter} showMenu={showMenu} />
-			<TodoList todos={filteredTodos} createTodo={createTodo} updateTodo={updateTodo} deleteTodo={deleteTodo} formattedDate={formattedDate} />
-			<UserPanel todos={filteredTodos} onDelete={deleteTodos} formattedDate={formattedDate}/>
+			<TodoList todos={filteredTodos} createTodo={createTodo} updateTodo={updateTodo} deleteTodo={deleteTodo} formattedDate={formattedDate} showMetricsHandler={showMetricsHandler} />
+      {showMetrics && <div className={classes.backdrop} onClick={hideMetricsHandler}></div>}
+			<UserPanel todos={filteredTodos} onDelete={deleteTodos} formattedDate={formattedDate} showMetrics={showMetrics}/>
 		</section>
 	);
 }

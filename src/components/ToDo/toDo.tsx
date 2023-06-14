@@ -22,18 +22,18 @@ interface ToDoProps{
 }
 function ToDo({todo, statusHandler,addToDoHandler,deleteHandler, importantHandler}:ToDoProps){
     return <li key={todo.id}  className={classes.todo}>
-    <h4 className={todo.isCompleted ? classes.completed : ''}>{todo.title}</h4>
+    <h4 data-testid="todo-title" className={todo.isCompleted ? classes.completed : ''}>{todo.title}</h4>
     <p className={todo.isCompleted ? classes.completed : ''}>{todo.description}</p>
-    {todo.date ? <p><AiOutlineCalendar/>{new Date(todo.date).toLocaleDateString('en-GB')}</p> : <p>No date</p>}
+    {todo.date ? <p className={classes.date}><AiOutlineCalendar/>{new Date(todo.date).toLocaleDateString('en-GB')}</p> : <p>No date</p>}
     <hr className={classes.hr} />
   <div className={classes.controls}>
   <button onClick={() => statusHandler(todo.id)}>
-    {todo.isCompleted ? <div className={classes.completion}><AiOutlineCheck /></div> : <div className={classes.completion}><AiOutlineClose/></div>}
+    {todo.isCompleted ? <div data-testid="completion" className={classes.completion} ><AiOutlineCheck /></div> : <div data-testid="completion" className={classes.completion}><AiOutlineClose/></div>}
   </button>
   <button onClick={() =>{addToDoHandler(todo)}}>
     <AiFillEdit />
   </button>
-  <button onClick={() => deleteHandler(todo.id)}>
+  <button onClick={() => deleteHandler(todo.id)} data-testid="delete-button">
     <AiFillDelete />
   </button>
   <button

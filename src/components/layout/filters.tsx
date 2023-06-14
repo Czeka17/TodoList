@@ -26,7 +26,7 @@ const FilterNav: React.FC<FilterNavProps> = ({ onFilter, showMenu,hideMenuHandle
             Today's
           </a>
         </li>
-        <li onClick={() => handleFilterClick("important")} className={activeFilter === "important" ? classes.active : ""}>
+        <li data-testid="todo-filter" onClick={() => handleFilterClick("important")} className={activeFilter === "important" ? classes.active : ""}>
           <a>
             Important
           </a>

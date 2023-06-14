@@ -12,9 +12,10 @@ interface UserPanelProps {
   todos: ToDo[];
   onDelete: () => void
   formattedDate: string;
+  showMetrics: boolean
 }
 
-const UserPanel: React.FC<UserPanelProps> = ({ todos, onDelete, formattedDate }) => {
+const UserPanel: React.FC<UserPanelProps> = ({ todos, onDelete, formattedDate,showMetrics }) => {
   const getCompletionPercentage = (): number => {
     if (todos.length === 0) {
       return 0;
@@ -39,10 +40,10 @@ const UserPanel: React.FC<UserPanelProps> = ({ todos, onDelete, formattedDate })
     );
     const completedTodayTasks = todayTasks.filter((todo) => todo.isCompleted)
   return (
-    <div className={classes.container}>
-      <div>
-      <p>Hello user!</p>
-      {totalTasks ? <div><p className={classes.percentage}>All tasks: {completedTasks.length}/{totalTasks}</p>
+    <div className={`${classes.container} ${showMetrics ? classes.showMetrics : ''}`}>
+      <h2 className={classes.greetings}>Hello user!</h2>
+      <div className={classes.percentageContainer}>
+      {totalTasks ? <div><p data-testid="all-tasks"  className={classes.percentage}>All tasks: {completedTasks.length}/{totalTasks}</p>
       <div className={classes.line}>
       <div
           className={classes.fill}
@@ -50,15 +51,15 @@ const UserPanel: React.FC<UserPanelProps> = ({ todos, onDelete, formattedDate })
         />
       </div></div>: <p>No tasks!</p>}
       {todayTasks.length > 0 && <div>
-        <p className={classes.percentage}>Today tasks: {completedTodayTasks.length}/{todayTasks.length}</p>
+        <p data-testid="today-tasks" className={classes.percentage}>Today tasks: {completedTodayTasks.length}/{todayTasks.length}</p>
       <div className={classes.line}>
       <div
           className={classes.fill}
           style={{ width: `${getTodayCompletionPercentage()}%` }}
         />
       </div></div>}
-
       </div>
+
     <div>
     <button className={classes.deleteHandler} onClick={onDelete}>Delete all todos</button>
     <button className={classes.githubAnchor}><a href="https://github.com/Czeka17" target="_blank">Made by Jakub Czekański</a></button>

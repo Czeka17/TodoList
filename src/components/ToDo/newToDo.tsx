@@ -59,9 +59,12 @@ function NewToDo({
   function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if(!title || title.trim() === '' || !description || description.trim() === ''){
-      alert("Please provide a title and description.");
+    if(!title || title.trim() === ''){
+      alert("Please provide a title.");
       return
+    }
+    if(!description || description.trim() === ''){
+      alert("Please provide a description.")
     }
     if (description.length > 500) {
       alert('Description cannot exceed 500 characters.');
@@ -100,24 +103,29 @@ function NewToDo({
   }
 
   return (
-    <div className={classes.formContainer}>
+    <div className={classes.formContainer} data-testid="todo-modal">
       <div className={classes.overlay} onClick={onHideModal}></div>
       <form className={classes.form} onSubmit={handleFormSubmit}>
-        <p>{todo ? 'Edit Todo' : 'Add Todo'}</p>
+        <h2>{todo ? 'Edit Task' : 'Add Task'}</h2>
+        <label htmlFor="title">title</label>
         <input
-          placeholder="title"
+          placeholder="e.g, study"
           ref={titleRef}
           className={classes.formTitle}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          id="title"
         />
+        <label htmlFor="description">Description</label>
         <textarea
-          placeholder="description"
+          placeholder="(max 500 characters)"
           ref={descriptionRef}
           className={classes.formDescription}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          id="description"
         />
+        <label htmlFor='date'>Date</label>
         <input
           className={classes.formTitle}
           type="date"

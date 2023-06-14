@@ -40,6 +40,15 @@
 .controls button:first-child{
     margin-right: auto;
 }
+.date{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.date svg{
+  margin: 0 1em 0 0;
+}
+
   .completion{
     font-size: 1rem;
     display: flex;

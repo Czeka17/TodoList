@@ -1,6 +1,5 @@
 import { useState } from "react";
-import {AiOutlineSearch
-} from "react-icons/ai";
+import {AiOutlineSearch,AiOutlineStock} from "react-icons/ai";
 import classes from "./toDoList.module.css";
 import NewToDo from "./newToDo";
 import ToDos from "./toDo";
@@ -30,6 +29,7 @@ interface TodoListProps {
   ) => void;
   todos: ToDo[];
   formattedDate: string
+  showMetricsHandler:() => void
 }
 
 
@@ -37,7 +37,7 @@ function TodoList({
   todos,
   createTodo,
   updateTodo,
-  deleteTodo, formattedDate
+  deleteTodo, formattedDate,showMetricsHandler
 }: TodoListProps) {
   const [showModal, setShowModal] = useState(false);
   const [selectedTodo, setSelectedTodo] = useState<ToDo | null>()
@@ -45,8 +45,6 @@ function TodoList({
   const [filterByCompletion, setFilterByCompletion] = useState(false);
   const [altList, setAltList] = useState(false)
   const [searchQuery, setSearchQuery] = useState("");
-
-  
 
   function deleteHandler(id: number) {
     deleteTodo(id);
@@ -157,15 +155,16 @@ function TodoList({
       <div className={classes.date}>
       <p>{formattedDate}</p>
       <button className={classes.newTodo} onClick={() => addToDoHandler()}>Add todo</button>
+      <button onClick={showMetricsHandler} className={classes.metrics}><AiOutlineStock/></button>
       </div>
       </div>
       <ToDoActions altListHandler={altListHandler} normalListHandler={normalListHandler} altList={altList} filterAllTodos={filterAllTodos} filterByCompletionHandler={filterByCompletionHandler} filterByImportanceHandler={filterByImportanceHandler} />
-      <ul className={`${classes.todoList} ${altList ? classes.todoListAlternative : ''}`} >
+      <ul className={`${classes.todoList} ${altList ? classes.todoListAlternative : ''}`} data-testid="todo-list" >
         {filterTodos().map((todo) => (
           <ToDos todo={todo} statusHandler={statusHandler} addToDoHandler={addToDoHandler} deleteHandler={deleteHandler} importantHandler={importantHandler} />
         ))}
-        <li className={`${classes.createTodo} ${altList ? classes.todoListAlternative : ''}`}>
-          <button onClick={() => addToDoHandler()}>Add todo</button>
+        <li onClick={() => addToDoHandler()} className={`${classes.createTodo} ${altList ? classes.todoListAlternative : ''}`}>
+          <button>Add todo</button>
         </li>
       </ul>
       {showModal && <NewToDo createTodo={createTodo} onHideModal={hideModal} editTodo={editTodo} todo={selectedTodo} />}

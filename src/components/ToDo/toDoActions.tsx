@@ -1,4 +1,4 @@
-import {AiOutlineUnorderedList,AiOutlineTable,} from "react-icons/ai";
+import {AiOutlineUnorderedList,AiOutlineTable} from "react-icons/ai";
 import classes from './toDoActions.module.css'
 interface ToDoActionsProps{
 altListHandler: () => void
@@ -11,8 +11,8 @@ filterByImportanceHandler: () => void;
 function ToDoActions({altListHandler, normalListHandler,altList,filterAllTodos,filterByCompletionHandler,filterByImportanceHandler}:ToDoActionsProps){
 return <div className={classes.actions}>
 <div className={classes.listActions}>
-<button onClick={altListHandler} className={`${altList ? classes.activeAction : classes.notActiveAction}`}><AiOutlineUnorderedList/></button>
-<button onClick={normalListHandler} className={`${altList ? classes.notActiveAction : classes.activeAction}`}><AiOutlineTable/></button>
+<button data-testid="alt-list" onClick={altListHandler} className={`${altList ? classes.activeAction : classes.notActiveAction}`}><AiOutlineUnorderedList/></button>
+<button data-testid="normal-list" onClick={normalListHandler} className={`${altList ? classes.notActiveAction : classes.activeAction}`}><AiOutlineTable/></button>
 </div>
   <select className={classes.selectFilter}
     onChange={(e) => {
