@@ -5,6 +5,8 @@ import NewToDo from "./newToDo";
 import ToDos from "./toDo";
 import ToDoActions from "./toDoActions";
 import Hamburger from "hamburger-react";
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+
 
 interface ToDo {
   id: number;
@@ -53,11 +55,16 @@ function TodoList({
   function deleteHandler(id: number) {
     deleteTodo(id);
   }
-  function altListHandler(){
-    setAltList(true)
+  function altListHandler() {
+    setTimeout(() => {
+      setAltList(true);
+    }, 0);
   }
-  function normalListHandler(){
-    setAltList(false)
+  
+  function normalListHandler() {
+    setTimeout(() => {
+      setAltList(false);
+    }, 0);
   }
 
 
@@ -155,15 +162,30 @@ function TodoList({
       <button className={classes.newTodo} onClick={() => addToDoHandler()}>Add todo</button>
       <button onClick={showMetricsHandler} className={classes.metrics}><AiOutlineStock/></button>
       </div>
+      <button className={classes.newTodoMobile} onClick={() => addToDoHandler()}>Add todo</button>
       </div>
       <ToDoActions altListHandler={altListHandler} normalListHandler={normalListHandler} altList={altList} />
-      <ul className={`${classes.todoList} ${altList ? classes.todoListAlternative : ''}`} data-testid="todo-list" >
+      <ul className={`${classes.todoList} ${altList ? classes.todoListAlternative : ''}`} data-testid="todo-list" key={altList ? 'alt' : 'normal'}>
+      <TransitionGroup component={null}>
         {filterTodos().map((todo) => (
+           <CSSTransition
+           key={todo.id}
+           timeout={500}
+           classNames={{
+             enter: classes.todoEnter,
+             enterActive: classes.todoEnterActive,
+             exit: classes.todoExit,
+             exitActive: classes.todoExitActive,
+           }}
+         >
           <ToDos todo={todo} statusHandler={statusHandler} addToDoHandler={addToDoHandler} deleteHandler={deleteHandler} importantHandler={importantHandler} />
+          </CSSTransition>
         ))}
+        
         <li onClick={() => addToDoHandler()} className={`${classes.createTodo} ${altList ? classes.todoListAlternative : ''}`}>
           <button>Add todo</button>
         </li>
+        </TransitionGroup>
       </ul>
       {showModal && <NewToDo createTodo={createTodo} onHideModal={hideModal} editTodo={editTodo} todo={selectedTodo} />}
     </section>

@@ -29,7 +29,7 @@
     border: 1px solid #11009E;
     background-color: #11009E;
     color: white;
-    padding: 1em;
+    padding: 1em 2.5em 1em 1em;
 }
 .search svg{
     position: absolute;
@@ -51,6 +51,22 @@
     color: white;
     border-radius: 10px;
     cursor: pointer;
+    transition: transform 0.3s;
+}
+.newTodoMobile{
+    display: none;
+    padding: 1em;
+    margin-bottom: 1em;;
+    width: 100%;
+    background: #11009E;
+    border: 1px solid #11009E;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+.newTodo:hover{
+    transform: scale(1.1);
 }
 .metrics{
     display: none;
@@ -69,6 +85,7 @@
     padding: 0;
     padding-top: 1em;
     transition: all 0.3s ease;
+    animation: ChangeDisplay 0.5s linear;
   }
   
 .createTodo{
@@ -100,8 +117,7 @@
     display: grid;
   grid-template-columns: 1fr;
   grid-gap: 1em;
-  transition: all 0.3s ease;
-  
+  animation: ChangeDisplay 0.5s linear;
   }
 
 .todoContainer::-webkit-scrollbar {
@@ -120,6 +136,9 @@
     .todoList{
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
+    .todoListAlternative{
+        grid-template-columns: 1fr;
+    }
   }
   @media (min-width: 768px) {
     .menuContainer {
@@ -132,6 +151,10 @@
     }
   }
   @media (max-width: 768px) {
+    .menuContainer {
+        flex-direction: column;
+        align-items: center;
+      }
   .date{
     margin-bottom: 1em;
     justify-content: space-between;
@@ -143,6 +166,9 @@
 }
 .newTodo{
     display: none;
+}
+.newTodoMobile{
+    display: block;
 }
 .date button{
     margin: 0 0.5em;
@@ -157,5 +183,45 @@
     width: 100%;
     padding: 1em 0;
 }
+.todoList{
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+.todoListAlternative{
+    grid-template-columns: 1fr;
+}
 }
   
+
+.todoEnter {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  
+  .todoEnterActive {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 500ms, transform 500ms;
+  }
+  
+  .todoExit {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .todoExitActive {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 300ms, transform 300ms;
+  }
+  
+
+  @keyframes ChangeDisplay{
+    0%{
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+  }

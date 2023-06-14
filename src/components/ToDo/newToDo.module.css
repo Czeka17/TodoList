@@ -26,6 +26,7 @@
     background:#0C006B;
     padding: 3em;
     border-radius: 8px;
+    animation: ModalSlide 0.3s ease-in-out;
 }
 .form label{
     align-self:flex-start;
@@ -99,5 +100,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     .form{
         width: 100%;
         padding: 1em;
+    }
+}
+
+@keyframes ModalSlide{
+    0%{
+        opacity: 0;
+        transform: translateY(-50%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0);
     }
 }

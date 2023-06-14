@@ -23,6 +23,8 @@ function App() {
   const currentDate = new Date();
   const options = { year: 'numeric', month: 'short', day: 'numeric' } as const;
 
+  const formattedDate = currentDate.toLocaleDateString('en-US', options);
+
   const DUMMY_TODOS = [ 
     {
       id: 1,
@@ -38,7 +40,7 @@ function App() {
       description: 'This is a test todo',
       isImportant: true,
       isCompleted: false,
-      date: null
+      date: new Date(currentDate.toLocaleDateString('en-US', options))
     },{
       id: 3,
       title: 'Test Todo',
@@ -48,8 +50,6 @@ function App() {
       date: null
     }
   ]
-  const formattedDate = currentDate.toLocaleDateString('en-US', options);
-
   useEffect(() => {
     const storedTodos = localStorage.getItem('todos');
     if (storedTodos) {

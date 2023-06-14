@@ -3,7 +3,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 2em 0;
+    padding: 1em 0;
 }
 .listActions button{
     background: transparent;

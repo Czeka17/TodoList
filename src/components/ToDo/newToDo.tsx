@@ -106,7 +106,7 @@ function NewToDo({
   return (
     <div className={classes.formContainer} data-testid="todo-modal">
       <div className={classes.overlay} onClick={onHideModal}></div>
-      <form className={classes.form} onSubmit={handleFormSubmit}>
+      <form className={classes.form} onSubmit={handleFormSubmit} action='#' method="POST">
         <h2>{todo ? 'Edit Task' : 'Add Task'}</h2>
         <label htmlFor="title">title</label>
         <input

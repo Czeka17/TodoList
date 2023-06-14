@@ -22,6 +22,7 @@
     font-weight: bold;
     margin-bottom: 10px;
     text-align: center;
+    animation: showMetricsAnimation 0.3s ease-in;
   }
   
   .line {
@@ -31,6 +32,7 @@
     border: 1px solid #ccc;
     border-radius: 10px;
     position: relative;
+    animation: showMetricsAnimation 0.3s ease-in-out;
   }
   .fill {
     height: 100%;
@@ -53,7 +55,8 @@
     font-weight: bold;
     cursor: pointer;
   }
-  .githubAnchor{
+
+  .githubAnchor {
     margin: 1em;
     padding: 1em 2em;
     background: #0C006B;
@@ -61,11 +64,34 @@
     border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
   }
   .githubAnchor a{
-    text-decoration: none;
     color: white;
+    text-decoration: none;
   }
+  .githubAnchor::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    background: #362ac1;
+    border-radius: 50%;
+    transition: width 0.3s ease, height 0.3s ease;
+    z-index: -1;
+  }
+  
+  .githubAnchor:hover::before {
+    width: 200%;
+    height: 200%;
+  }
+  
+  
   @media(max-width: 1024px){
     .container{
         position: fixed;
@@ -78,4 +104,15 @@
     .showMetrics{
       transform: translate(0%);
     }
+}
+
+@keyframes showMetricsAnimation{
+  0%{
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+  100%{
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
