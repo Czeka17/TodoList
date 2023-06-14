@@ -55,6 +55,9 @@ function App() {
     if (storedTodos) {
       setTodos(JSON.parse(storedTodos));
       setNextId(JSON.parse(storedTodos).length + 1); 
+    }else {
+      setTodos([...DUMMY_TODOS]);
+      setNextId(DUMMY_TODOS.length + 1);
     }
     }, []);
     
@@ -63,11 +66,6 @@ function App() {
       localStorage.setItem('todos', JSON.stringify(todos));
     }, [todos]);
   
-    useEffect(()=> {
-      if(todos.length === 0){
-        setTodos([...DUMMY_TODOS,...todos])
-    }
-    }, [])
 	function deleteTodos(){
 		setTodos([])
 	}
