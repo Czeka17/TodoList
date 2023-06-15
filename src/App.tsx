@@ -3,7 +3,8 @@ import TodoList from "./components/ToDo/toDoList";
 import FilterNav from "./components/layout/filters";
 import classes from './App.module.css'
 import UserPanel from "./components/layout/user-panel";
-import Hamburger from "hamburger-react";
+import { Helmet } from 'react-helmet';
+
 interface ToDo {
 	id: number;
 	title: string;
@@ -135,13 +136,20 @@ function App() {
     setShowMetrics(false)
   }
 	return (
-		<section className={classes.display}>
+		<main className={classes.display}>
+      <Helmet>
+      <title>Todo List App</title>
+      <meta name="description" content="A simple todo list app to manage your tasks and stay organized." />
+      <meta name="keywords" content="todo list, task manager, task tracker, productivity app" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta name="author" content="Jakub Czekański"/>
+      </Helmet>
       {showMenu && <div className={classes.backdrop} onClick={hideMenuHandler}></div>}
 			<FilterNav hideMenuHandler={hideMenuHandler} onFilter={handleFilter} showMenu={showMenu} />
 			<TodoList todos={filteredTodos} createTodo={createTodo} updateTodo={updateTodo} deleteTodo={deleteTodo} formattedDate={formattedDate} showMetricsHandler={showMetricsHandler} hamburgerToggled={hamburgerToggled} hambugerToggledHandler={hambugerToggledHandler} hamburgerToggleHandler={hamburgerToggleHandler} />
       {showMetrics && <div className={classes.backdrop} onClick={hideMetricsHandler}></div>}
 			<UserPanel todos={filteredTodos} onDelete={deleteTodos} formattedDate={formattedDate} showMetrics={showMetrics}/>
-		</section>
+		</main>
 	);
 }
 
